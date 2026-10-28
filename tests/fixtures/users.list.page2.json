@@ -1,0 +1,4 @@
+{"ok":true,"members":[
+ {"id":"U0004","team_id":"T0001","name":"gone","deleted":true,"profile":{"real_name":"Gone Person","display_name":""}},
+ {"id":"U0005","team_id":"T0001","name":"ana","profile":{"real_name":"Ana Lima","display_name":""}}
+],"response_metadata":{"next_cursor":""}}

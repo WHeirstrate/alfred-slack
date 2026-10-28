@@ -1,0 +1,10 @@
+{"ok":true,"channels":[
+ {"id":"C0001","name":"general","is_channel":true,"is_private":false,"is_member":true,"num_members":42},
+ {"id":"C0002","name":"secops-incidents","is_group":true,"is_private":true,"is_member":true,"num_members":5},
+ {"id":"C0003","name":"acme-partner_shared","is_channel":true,"is_ext_shared":true,"is_shared":true,"is_member":true,"num_members":3},
+ {"id":"C0004","name":"random","is_channel":true,"is_member":false,"num_members":40},
+ {"id":"G0001","name":"mpdm-wouter--jerome--ana-1","is_mpim":true,"is_private":true,"is_member":true},
+ {"id":"D0001","is_im":true,"user":"U0002"},
+ {"id":"D0002","is_im":true,"user":"W0009"},
+ {"id":"D0003","is_im":true,"user":"U0004","is_user_deleted":true}
+],"response_metadata":{"next_cursor":""}}

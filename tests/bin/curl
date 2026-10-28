@@ -1,0 +1,48 @@
+#!/bin/zsh --no-rcs
+# Test double for curl: serves tests/fixtures/<method>[.<cursor|channel|user>].json
+# instead of calling slack.com. Behaviour knobs (env):
+#   FAKE_SCOPES     value for the x-oauth-scopes header
+#   FAKE_429_ONCE   method name that answers HTTP 429 (Retry-After: 1) once
+#   FAKE_STATE      scratch dir for call logs / one-shot state
+
+emulate -L zsh
+fixtures=${0:A:h}/../fixtures
+headers='' out='' url='' extra=''
+config=$(cat)  # -K - : the auth header arrives on stdin
+
+while (( $# )); do
+  case $1 in
+    -D) headers=$2; shift ;;
+    -o) out=$2; shift ;;
+    --data-urlencode)
+      case $2 in
+        cursor=*) extra=.${2#cursor=} ;;
+        channel=*) extra=.${2#channel=} ;;
+        user=*) extra=.${2#user=} ;;
+      esac
+      shift ;;
+    https://*) url=$1 ;;
+  esac
+  shift
+done
+
+method=${url##*/}
+print -r -- "$method$extra" >> "$FAKE_STATE/calls.log"
+[[ $config == *'Authorization: Bearer xoxp-'* ]] || { print -n 200; print '{"ok":false,"error":"not_authed"}' > "$out"; exit 0 }
+
+if [[ ${FAKE_429_ONCE:-} == "$method" && ! -e $FAKE_STATE/429.done ]]; then
+  touch "$FAKE_STATE/429.done"
+  printf 'HTTP/2 429\r\nretry-after: 1\r\n\r\n' > "$headers"
+  : > "$out"
+  print -n 429
+  exit 0
+fi
+
+printf 'HTTP/2 200\r\nx-oauth-scopes: %s\r\n\r\n' "${FAKE_SCOPES:-users:read,channels:read,groups:read,mpim:read,im:read}" > "$headers"
+file=$fixtures/$method$extra.json
+if [[ -r $file ]]; then
+  cat "$file" > "$out"
+else
+  print '{"ok":false,"error":"fixture_missing"}' > "$out"
+fi
+print -n 200

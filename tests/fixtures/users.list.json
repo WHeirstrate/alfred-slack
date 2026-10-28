@@ -1,0 +1,5 @@
+{"ok":true,"members":[
+ {"id":"U0001","team_id":"T0001","name":"wouter","real_name":"Wouter Heirstrate","profile":{"real_name":"Wouter Heirstrate","display_name":"Wouter","email":"should-not-be-cached@example.com","title":"SecOps"}},
+ {"id":"U0002","team_id":"T0001","name":"jerome","profile":{"real_name":"Jérôme Dupont","display_name":"Jérôme"}},
+ {"id":"U0003","team_id":"T0001","name":"deploybot","is_bot":true,"profile":{"real_name":"Deploy Bot","display_name":""}}
+],"response_metadata":{"next_cursor":"page2"}}

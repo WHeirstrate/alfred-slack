@@ -1,0 +1,21 @@
+# Slack app manifest for the Alfred Slack Quick Switcher.
+# Paste at https://api.slack.com/apps -> Create New App -> From a manifest.
+#
+# User token scopes only, all read-only. No bot user, no bot scopes, no
+# event subscriptions, no interactivity, no redirect URLs.
+display_information:
+  name: Alfred Quick Switcher
+  description: Read-only lookup of people, group chats and channels for a local Alfred quick switcher.
+  background_color: "#4a154b"
+oauth_config:
+  scopes:
+    user:
+      - users:read
+      - channels:read
+      - groups:read
+      - mpim:read
+      - im:read
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

@@ -1,0 +1,22 @@
+#!/bin/zsh --no-rcs
+# Test double for /usr/bin/security backed by a file in $FAKE_STATE.
+# Supports exactly the calls lib.zsh makes.
+
+emulate -L zsh
+store=$FAKE_STATE/keychain
+
+case $1 in
+  find-generic-password)
+    [[ -s $store ]] || exit 44
+    [[ ${@[-1]} == -w ]] && cat "$store"
+    exit 0 ;;
+  delete-generic-password)
+    [[ -e $store ]] || exit 44
+    rm -f "$store" ;;
+  -i)
+    # "add-generic-password ... -w TOKEN" arrives on stdin.
+    line=$(cat)
+    [[ $line == add-generic-password* ]] || exit 1
+    print -r -- "${line##* -w }" > "$store" ;;
+  *) exit 1 ;;
+esac

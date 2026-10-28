@@ -1,0 +1,25 @@
+# Build output
+dist/
+*.alfredworkflow
+
+# Cache / state (normally lives outside the repo, but never commit a copy)
+cache.json
+status.json
+*.cache
+.work.*
+.refresh.lock/
+
+# Anything token-like
+*.token
+.env
+.env.*
+*secret*
+*credential*
+xoxp-*
+xoxb-*
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
