@@ -58,7 +58,7 @@ You need a Slack app installed to your workspace that has a **user token** (`xox
    | `mpim:read` | List your group chats and their members |
    | `im:read` | List your DMs, so a person opens their existing DM |
 
-   Leave **Bot Token Scopes** empty. Don't add `users:read.email` or any `*:history` or `*:write` scope. The refresh will refuse a token that has them.
+   Leave **Bot Token Scopes** empty. Don't add `users:read.email` or any `*:history` or `*:write` scope. The refresh will refuse a token that has them. (Slack adds `identify` to the token by itself; that one is expected and allowed.)
 3. **Install to Workspace** → **Allow**, then copy the **User OAuth Token** (`xoxp-…`).
 
 If your workspace requires app approval, approve it as an admin first.

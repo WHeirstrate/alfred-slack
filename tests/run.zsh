@@ -52,7 +52,8 @@ check "token with write scope is refused" \
 check "no cache written with excess scopes" test ! -e "$alfred_workflow_data/cache.json"
 
 # --- Successful refresh (with one 429) --------------------------------------
-out=$(FAKE_429_ONCE=users.list "$scripts/refresh.zsh" 2>/dev/null)
+out=$(FAKE_429_ONCE=users.list FAKE_SCOPES=identify,users:read,channels:read,groups:read,mpim:read,im:read \
+  "$scripts/refresh.zsh" 2>/dev/null)
 check "refresh succeeds after a 429" test "$(jq -r .ok "$alfred_workflow_data/status.json")" = true
 check "refresh prints summary" test "${out[1,22]}" = "Slack cache refreshed:"
 check "users.list was paginated" grep -qx 'users.list.page2' "$FAKE_STATE/calls.log"

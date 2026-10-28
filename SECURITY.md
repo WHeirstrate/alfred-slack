@@ -14,12 +14,14 @@ Only **user token** scopes, all read-only:
 | `mpim:read` | `conversations.list`, `conversations.members` | Your group chats and their members, to show names instead of `mpdm-…` |
 | `im:read` | `conversations.list` | Your DM channel IDs, so a person opens their existing DM |
 
+Slack also attaches **`identify`** to every user token on its own; you don't request it and can't remove it. It only exposes who the token belongs to (user and workspace, as returned by `auth.test`), so it's the one extra scope the workflow tolerates.
+
 The token has no write scopes, no message-history scopes, no `users:read.email`, and no bot token.
 
 The token can see names and IDs only. It cannot read messages, files or email addresses, and it cannot post or change anything.
 
 **Enforced at runtime:**
-- Every refresh reads the `x-oauth-scopes` header from `auth.test`. If the token has any scope outside the five above, or if the header is missing, the refresh stops, writes nothing, and search shows an error instead of results.
+- Every refresh reads the `x-oauth-scopes` header from `auth.test`. If the token has any scope outside the five above (plus the implicit `identify`), or if the header is missing, the refresh stops, writes nothing, and search shows an error instead of results.
 - Even if the app is later given broader scopes, the workflow fails closed rather than quietly using them.
 
 ## Where things live

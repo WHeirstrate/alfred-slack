@@ -9,8 +9,9 @@ readonly KEYCHAIN_ACCOUNT='slack-user-token'
 readonly SLACK_API='https://slack.com/api'
 
 # Read-only scopes the token is allowed to carry. refresh.zsh refuses to run
-# with a token that has anything beyond this set.
-readonly -a ALLOWED_SCOPES=(users:read channels:read groups:read mpim:read im:read)
+# with a token that has anything beyond this set. "identify" is added to user
+# tokens by Slack itself and only exposes the token owner's own identity.
+readonly -a ALLOWED_SCOPES=(users:read channels:read groups:read mpim:read im:read identify)
 
 # Alfred exports alfred_workflow_data; the LaunchAgent does not, so fall back
 # to the same path Alfred would use.
